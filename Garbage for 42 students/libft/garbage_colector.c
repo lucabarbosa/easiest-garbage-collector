@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   garbage_colector.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/11 00:24:50 by lbento            #+#    #+#             */
+/*   Updated: 2026/01/13 17:28:03 by lbento           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "garbage_colector.h"
 
 void	gc_clear(t_gc **gc);
@@ -44,7 +56,8 @@ void	gc_clear(t_gc **gc)
 	while (current)
 	{
 		next = current->next;
-		free(current->ptr);
+		if (current->ptr)
+			free(current->ptr);
 		free(current);
 		current = next;
 	}
@@ -56,7 +69,7 @@ void	gc_free(t_gc **gc, void *ptr)
 	t_gc	*current;
 	t_gc	*prev;
 
-	if (!gc || !*gc)
+	if (!gc || !*gc || !ptr)
 		return ;
 	current = *gc;
 	prev = NULL;
