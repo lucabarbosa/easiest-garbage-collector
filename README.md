@@ -184,7 +184,8 @@ void *gc_malloc(t_gc **gc, size_t size)
     void *ptr = malloc(size);
     if (!ptr)
         return (NULL);
-    gc_add(gc, ptr);   // register the new pointer
+   if (gc_add(gc, ptr))   // register the new pointer
+        return (NULL);
     return (ptr);
 }
 ```
@@ -196,7 +197,7 @@ The allocation and the registration are two separate steps. This means you can a
 ### `gc_add` — internals
 
 ```c
-void gc_add(t_gc **gc, void *ptr)
+int gc_add(t_gc **gc, void *ptr)
 {
     t_gc *new_node;
 
@@ -206,11 +207,12 @@ void gc_add(t_gc **gc, void *ptr)
     if (!new_node)
     {
         free(ptr);   // if we can't track it, don't leak it
-        return ;
+        return (1);
     }
     new_node->ptr  = ptr;
     new_node->next = *gc;  // prepend to the list
     *gc = new_node;
+    return (0);
 }
 ```
 
