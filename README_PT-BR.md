@@ -260,7 +260,7 @@ void gc_clear(t_gc **gc)
     t_gc *next;
 
     if (!gc || !*gc)
-        return ;
+        return (1);
     current = *gc;
     while (current)
     {

@@ -202,7 +202,7 @@ int gc_add(t_gc **gc, void *ptr)
     t_gc *new_node;
 
     if (!ptr)
-        return ;
+        return (1);
     new_node = malloc(sizeof(t_gc));
     if (!new_node)
     {
