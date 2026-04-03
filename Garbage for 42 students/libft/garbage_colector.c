@@ -6,14 +6,14 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 00:24:50 by lbento            #+#    #+#             */
-/*   Updated: 2026/01/13 17:28:03 by lbento           ###   ########.fr       */
+/*   Updated: 2026/04/03 18:27:12 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "garbage_colector.h"
 
 void	gc_clear(t_gc **gc);
-void	gc_add(t_gc **gc, void *ptr);
+int	gc_add(t_gc **gc, void *ptr);
 void	gc_free(t_gc **gc, void *ptr);
 void	*gc_malloc(t_gc **gc, size_t size);
 
@@ -24,11 +24,12 @@ void	*gc_malloc(t_gc **gc, size_t size)
 	ptr = malloc(size);
 	if (!ptr)
 		return (NULL);
-	gc_add(gc, ptr);
+	if (gc_add(gc, ptr))
+		return (NULL);
 	return (ptr);
 }
 
-void	gc_add(t_gc **gc, void *ptr)
+int	gc_add(t_gc **gc, void *ptr)
 {
 	t_gc	*new_node;
 
@@ -38,11 +39,12 @@ void	gc_add(t_gc **gc, void *ptr)
 	if (!new_node)
 	{
 		free(ptr);
-		return ;
+		return (1);
 	}
 	new_node->ptr = ptr;
 	new_node->next = *gc;
 	*gc = new_node;
+	return (0);
 }
 
 void	gc_clear(t_gc **gc)

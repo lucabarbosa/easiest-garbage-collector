@@ -6,7 +6,7 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/17 13:29:13 by lbento            #+#    #+#             */
-/*   Updated: 2025/12/10 15:56:54 by lbento           ###   ########.fr       */
+/*   Updated: 2026/04/03 18:23:32 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 	i = 0;
 	if (little[0] == '\0')
 		return ((char *)big);
-	while (big[i] != '0' && i < len)
+	while (big[i] != '\0' && i < len)
 	{
 		j = 0;
 		if (big[i] == little[j])

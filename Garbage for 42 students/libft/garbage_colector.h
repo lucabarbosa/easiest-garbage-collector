@@ -6,7 +6,7 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 00:25:41 by lbento            #+#    #+#             */
-/*   Updated: 2026/01/13 16:13:13 by lbento           ###   ########.fr       */
+/*   Updated: 2026/04/03 18:27:23 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ typedef struct s_gc
 }	t_gc;
 
 void	gc_clear(t_gc **gc);
-void	gc_add(t_gc **gc, void *ptr);
+int	gc_add(t_gc **gc, void *ptr);
 void	gc_free(t_gc **gc, void *ptr);
 void	*gc_malloc(t_gc **gc, size_t size);
 
