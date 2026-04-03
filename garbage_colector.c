@@ -1,7 +1,7 @@
 #include "garbage_colector.h"
 
 void	gc_clear(t_gc **gc);
-void	gc_add(t_gc **gc, void *ptr);
+int	gc_add(t_gc **gc, void *ptr);
 void	gc_free(t_gc **gc, void *ptr);
 void	*gc_malloc(t_gc **gc, size_t size);
 
@@ -12,25 +12,27 @@ void	*gc_malloc(t_gc **gc, size_t size)
 	ptr = malloc(size);
 	if (!ptr)
 		return (NULL);
-	gc_add(gc, ptr);
+	if (gc_add(gc, ptr))
+		return (NULL);
 	return (ptr);
 }
 
-void	gc_add(t_gc **gc, void *ptr)
+int	gc_add(t_gc **gc, void *ptr)
 {
 	t_gc	*new_node;
 
 	if (!ptr)
-		return ;
+		return (1);
 	new_node = malloc(sizeof(t_gc));
 	if (!new_node)
 	{
 		free(ptr);
-		return ;
+		return (1);
 	}
 	new_node->ptr = ptr;
 	new_node->next = *gc;
 	*gc = new_node;
+	return (0);
 }
 
 void	gc_clear(t_gc **gc)
@@ -44,7 +46,8 @@ void	gc_clear(t_gc **gc)
 	while (current)
 	{
 		next = current->next;
-		free(current->ptr);
+		if (current->ptr)
+			free(current->ptr);
 		free(current);
 		current = next;
 	}
@@ -56,7 +59,7 @@ void	gc_free(t_gc **gc, void *ptr)
 	t_gc	*current;
 	t_gc	*prev;
 
-	if (!gc || !*gc)
+	if (!gc || !*gc || !ptr)
 		return ;
 	current = *gc;
 	prev = NULL;

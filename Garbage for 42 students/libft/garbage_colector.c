@@ -6,7 +6,7 @@
 /*   By: lbento <lbento@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/11 00:24:50 by lbento            #+#    #+#             */
-/*   Updated: 2026/04/03 18:27:12 by lbento           ###   ########.fr       */
+/*   Updated: 2026/04/03 19:01:12 by lbento           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	gc_add(t_gc **gc, void *ptr)
 	t_gc	*new_node;
 
 	if (!ptr)
-		return ;
+		return (1);
 	new_node = malloc(sizeof(t_gc));
 	if (!new_node)
 	{

@@ -10,7 +10,7 @@ typedef struct s_gc
 }	t_gc;
 
 void	gc_clear(t_gc **gc);
-void	gc_add(t_gc **gc, void *ptr);
+int	gc_add(t_gc **gc, void *ptr);
 void	gc_free(t_gc **gc, void *ptr);
 void	*gc_malloc(t_gc **gc, size_t size);
 
